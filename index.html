@@ -1,0 +1,92 @@
+
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CO₂-Footprint</title>
+  <link href="style.css" rel="stylesheet">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="https://cdn.datatables.net/1.13.4/css/jquery.dataTables.min.css">
+</head>
+<body class="bg-gray-50 text-gray-900 flex flex-col min-h-screen">
+
+  <!-- Header -->
+  <header class="bg-green-700 text-white p-4 flex items-center justify-between shadow">
+    <h1 class="text-2xl font-bold">🌍 CO₂-Footprint</h1>
+    <nav class="hidden md:flex">
+      <ul class="flex space-x-4">
+        <li><a href="index.html" class="hover:underline">Home</a></li>
+        <li><a href="ueber-uns.html" class="hover:underline">Über uns</a></li>
+        <li><a href="kontakt.html" class="hover:underline">Kontakt</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <main class="flex flex-1 flex-col md:flex-row p-4 gap-4">
+
+    <!-- Mobile Hamburger Button -->
+    <div class="flex justify-between md:hidden mb-4">
+      <h2 class="text-xl font-semibold">CO₂-Emissionsdaten</h2>
+      <button id="mobileMenuBtn"
+        class="px-4 py-2 bg-green-600 text-white rounded-lg shadow hover:bg-green-700 transition">
+        ☰ Menü
+      </button>
+    </div>
+
+    <!-- Sidebar -->
+    <nav id="sideMenu" class="w-full md:w-48 bg-gray-100 p-4 rounded-2xl shadow md:block hidden">
+      <ul>
+        <li><a href="index.html" class="block py-2">Startseite</a></li>
+        <li><a href="ueber-uns.html" class="block py-2">Über uns</a></li>
+        <li><a href="kontakt.html" class="block py-2">Kontakt</a></li>
+      </ul>
+    </nav>
+
+    <!-- Content -->
+    <section class="flex-1 bg-white p-6 rounded-2xl shadow">
+
+      <!-- Desktop toggle -->
+      <div class="flex justify-end mb-4">
+        <button id="toggleMenu"
+          class="px-4 py-2 bg-green-600 text-white rounded-lg shadow hover:bg-green-700 transition">
+          Menü links/rechts
+        </button>
+      </div>
+
+      <h2 class="text-xl font-semibold mb-4">CO₂-Emissionsdaten</h2>
+      <div class="overflow-x-auto">
+        <table id="co2Table" class="display stripe hover w-full">
+          <thead>
+            <tr>
+              <th>Land</th>
+              <th>Unternehmen</th>
+              <th>Jahr</th>
+              <th>Emissionen (Mt)</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr><td>Deutschland</td><td>BMW</td><td>2022</td><td>120</td></tr>
+            <tr><td>Deutschland</td><td>Siemens</td><td>2021</td><td>90</td></tr>
+            <tr><td>USA</td><td>ExxonMobil</td><td>2022</td><td>500</td></tr>
+            <tr><td>USA</td><td>Tesla</td><td>2021</td><td>40</td></tr>
+            <tr><td>China</td><td>Sinopec</td><td>2022</td><td>700</td></tr>
+            <tr><td>China</td><td>PetroChina</td><td>2021</td><td>650</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- Footer -->
+  <footer class="bg-gray-800 text-white text-center p-4 mt-auto">
+    © 2025 CO₂ Transparency | Rechtliche Hinweise
+  </footer>
+
+  <!-- Scripts -->
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  <script src="https://cdn.datatables.net/1.13.4/js/jquery.dataTables.min.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>

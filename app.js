@@ -1,59 +1,58 @@
-document.addEventListener("DOMContentLoaded", () => {
-  const sideMenu = document.getElementById("sideMenu");
-  const toggleBtn = document.getElementById("toggleMenu");
-  const mobileBtn = document.getElementById("mobileMenuBtn");
-
-  // ===== Desktop / Tablet: links/rechts Toggle nur ab md (768px)
-  if (sideMenu && toggleBtn) {
-    const applyToggle = () => {
-      if (window.innerWidth >= 768) { // md
-        toggleBtn.style.display = "inline-block";
-
-        const savedPos = localStorage.getItem("menuPosition");
-        if (savedPos === "right") {
-          sideMenu.classList.remove("order-first");
-          sideMenu.classList.add("order-last");
-        } else {
-          sideMenu.classList.remove("order-last");
-          sideMenu.classList.add("order-first");
-        }
-
-        toggleBtn.onclick = () => {
-          sideMenu.classList.toggle("order-first");
-          sideMenu.classList.toggle("order-last");
-
-          if (sideMenu.classList.contains("order-last")) {
-            localStorage.setItem("menuPosition", "right");
-          } else {
-            localStorage.setItem("menuPosition", "left");
-          }
-        };
-      } else {
-        // Unter md: Toggle ausblenden, Menü immer oben
-        toggleBtn.style.display = "none";
-        sideMenu.classList.remove("order-last", "order-first");
-      }
-    };
-
-    applyToggle();
-    window.addEventListener("resize", applyToggle);
-  }
-
-  // ===== Mobile Hamburger Menü (immer verfügbar)
-  if (sideMenu && mobileBtn) {
-    mobileBtn.addEventListener("click", () => {
-      sideMenu.classList.toggle("hidden");
-    });
-  }
-
-  // ===== DataTables nur wenn Tabelle vorhanden
+document.addEventListener("DOMContentLoaded", function () {
+  // --- DataTable nur wenn vorhanden ---
   const co2Table = document.getElementById("co2Table");
   if (co2Table) {
-    $(co2Table).DataTable({
-      paging: true,
-      searching: true,
-      info: false,
-      responsive: true
-    });
+    $('#co2Table').DataTable();
   }
+
+  // --- Sidebar Elemente ---
+  const toggleMenuBtn = document.getElementById("toggleMenu");
+  const sideMenu = document.getElementById("sideMenu");
+  const mobileMenuBtn = document.getElementById("mobileMenuBtn");
+  const overlay = document.getElementById("mobileOverlay");
+
+  // Menü links/rechts nur Desktop & LocalStorage
+  if (sideMenu && localStorage.getItem("menuPosition") === "right") {
+    sideMenu.classList.remove("md:order-first");
+    sideMenu.classList.add("md:order-last");
+  }
+
+  toggleMenuBtn?.addEventListener("click", () => {
+    sideMenu.classList.toggle("md:order-first");
+    sideMenu.classList.toggle("md:order-last");
+
+    if (sideMenu.classList.contains("md:order-last")) {
+      localStorage.setItem("menuPosition", "right");
+    } else {
+      localStorage.setItem("menuPosition", "left");
+    }
+  });
+
+  // --- Mobile Hamburger Menü ---
+  mobileMenuBtn?.addEventListener("click", () => {
+    sideMenu.classList.toggle("-translate-x-full");
+    overlay.classList.toggle("hidden");
+  });
+
+  overlay?.addEventListener("click", () => {
+    sideMenu.classList.add("-translate-x-full");
+    overlay.classList.add("hidden");
+  });
+});
+
+document.addEventListener("DOMContentLoaded", function () {
+  const sideLinks = document.querySelectorAll("#sideMenu a");
+  const currentPath = window.location.pathname.split("/").pop();
+
+  sideLinks.forEach(link => {
+    if (link.getAttribute("href") === currentPath) {
+      // Aktive Seite: hellgrüner Hintergrund, weiße Schrift, zentriert
+      link.classList.add("font-bold", "bg-green-300", "text-black", "flex", "items-center", "justify-center", "rounded-none");
+      link.classList.remove("hover:underline");
+    } else {
+      // Alle anderen: normal
+      link.classList.remove("font-bold", "bg-green-300", "text-black", "flex", "items-center", "justify-center");
+      link.classList.add("hover:underline");
+    }
+  });
 });
